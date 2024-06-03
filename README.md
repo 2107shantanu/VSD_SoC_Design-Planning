@@ -74,7 +74,7 @@ gvim Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/03-
 ### 3. Load Magic Tool & Explore Floorplan
 ```
 # Change directory to path containing generated floorplan def
-cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/17-03_12-06/results/floorplan/
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/03-06_12-06/results/floorplan/
 
 # Command to load the floorplan def in magic tool
 magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.floorplan.def &
@@ -82,7 +82,32 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 ```
 <img width="1228" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/12408a42-8079-4ce4-8c19-95ee874b8a34">
 
-#### Equidistant Placement of Ports
+#### A. Equidistant Placement of Ports
+#### B. Diagonally Equidistant Tap Cells
 
-<img width="1224" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/34a268d1-6f85-4865-b987-a26b43613c19">
+<img width="1230" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/48e66f2c-1084-410c-849b-b2579a67a584">
+
+#### C. Unplaced Standard Cell at Origin
+<img width="1222" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/ab5341c1-a221-4e77-ac1a-256ac571abf2">
+
+### 4. Run Placement
+```
+run_placement
+```
+<img width="1225" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/80e5cbfb-abbb-46d7-ab4a-c0d0f02b2e33">
+
+### 5. Load Magic Tool & Explore Placement
+
+```
+# Change directory to path containing generated placement def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/03-06_12-06/results/placement/
+
+# Command to load the placement def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+```
+<img width="967" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/b3b00e16-e917-47b7-8eff-b8a5b05bbc32">
+
+#### Legally placed standard cells
+<img width="971" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/43c7c15e-215f-48db-aa6c-2d65741f49ac">
+
 
