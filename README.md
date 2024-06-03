@@ -1,7 +1,7 @@
 # VSD_SoC_Design-Planning
 ## Setup
 brew || UTM || Loading etc.
-## Day1
+## Day 1
 ### 1. Opening OpenLane and Running Synthesis
 
 ```
@@ -38,7 +38,7 @@ exit
 # Exit from OpenLANE flow docker sub-system
 exit
 ```
-### Flop Ratios
+### 2. Flop Ratios
 
 ```
 # Open new terminal tab
@@ -50,3 +50,6 @@ gvim 1-yosys_4.stat.rpt
 
 <img width="996" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/5ce511c4-6c43-4e98-afe8-af7b8e794d4e">
 
+<img width="845" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/349ca380-f8d4-4ce2-9bf0-5217862bab44">
+
+## Day 2
