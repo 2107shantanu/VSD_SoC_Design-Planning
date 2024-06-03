@@ -118,3 +118,5 @@ exit
 exit
 ```
 
+## Day 3
+
