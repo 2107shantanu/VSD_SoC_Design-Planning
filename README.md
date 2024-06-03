@@ -27,7 +27,11 @@ prep -design picorv32a
 
 # Now that the design is prepped and ready, we can run synthesis using following command
 run_synthesis
+```
+<img width="1229" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/b73c09de-a129-490e-874c-550da44d8497">
 
+
+```
 # Exit from OpenLANE flow
 exit
 
