@@ -678,7 +678,73 @@ echo $::env(ROUTING_STRATEGY)
 # Command for detailed route using TritonRoute
 run_routing
 ```
+Img
 
+```
+# Change directory to path containing routed def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/04-06_07-47/results/routing/
+
+# Command to load the routed def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.def &
+```
+<img width="716" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/b5e6a2ee-f012-42d6-be36-72b50487a39b">
+<img width="801" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/1912f760-96ee-4784-8eb8-5d7acf7e3f52">
+<img width="783" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/77f9f272-2711-4f85-a9f1-73f6f2c8704d">
+
+### 3. SPEF Extraction
+```
+# Change directory
+cd Desktop/work/tools/SPEF_EXTRACTOR
+
+# Command extract spef
+python3 main.py /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/04-06_07-47/tmp/merged.lef /home/vsduser/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/04-06_07-47/results/routing/picorv32a.def
+```
+### 4. Post-Route OpenSTA timing analysis with the extracted parasitics of the route
+
+```
+# Command to run OpenROAD tool
+openroad
+
+# Reading lef file
+read_lef /openLANE_flow/designs/picorv32a/runs/04-06_07-47/tmp/merged.lef
+
+# Reading def file
+read_def /openLANE_flow/designs/picorv32a/runs/04-06_07-47/results/routing/picorv32a.def
+
+# Creating an OpenROAD database to work with
+write_db pico_route.db
+
+# Loading the created database in OpenROAD
+read_db pico_route.db
+
+# Read netlist post CTS
+read_verilog /openLANE_flow/designs/picorv32a/runs/04-06_07-47/results/synthesis/picorv32a.synthesis_preroute.v
+
+# Read library for design
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Link design and library
+link_design picorv32a
+
+# Read in the custom sdc we created
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all cloks as propagated clocks
+set_propagated_clock [all_clocks]
+
+# Read SPEF
+read_spef /openLANE_flow/designs/picorv32a/runs/04-06_07-47/results/routing/picorv32a.spef
+
+# Generating custom timing report
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+# Exit to OpenLANE flow
+exit
+```
+<img width="752" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/42149b95-d69c-452a-8e57-d3a0ae96abcb">
+
+## Final Generated Output
+<img width="683" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/88d54b8f-a5a0-4706-ae16-72ef41b54ae0">
 
 ## Refrences
 1. Magic DRC: http://opencircuitdesign.com/magic/Technologyfiles/TheMagicTechnologyFileManual/DrcSection
