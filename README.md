@@ -408,6 +408,43 @@ tap_decap_or
 run_placement
 
 ```
+<img width="1226" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/9cf223b7-bf15-46f3-afac-f5f11ac41c31">
+
+#### B. Check the Placement in Magic and also Custom inverter
+
+```
+# Change directory to path containing generated placement def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/04-06_07-47/results/placement/
+
+# Command to load the placement def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read picorv32a.placement.def &
+
+```
+
+<img width="1006" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/c9eb6cf2-cc20-47e1-84dc-8af87b90f60b">
+
+### INV and abutted cell
+
+### 5. Post-synthesis timing analysis: OpenSTA
+#### A. Create pre_sta.conf
+<img width="1015" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/7b92e708-07df-4a57-94eb-c47ac5828a4d">
+
+#### B. Create my_base.sdc
+<img width="949" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/af711343-d880-472e-8321-e3090c3c72bb">
+
+#### C. Run STA
+
+```
+# Change directory to openlane
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+# Command to invoke OpenSTA tool with script
+sta pre_sta.conf
+```
+
+
+
+
 
 
 
