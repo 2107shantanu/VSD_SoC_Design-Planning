@@ -1,5 +1,26 @@
 # VSD_SoC_Design-Planning
 
+## RTL2DGSII
+The RTL2GDSII flow, also known as the digital or ASIC flow, is the journey of transforming an idea into a physical microchip. It's a multi-stage process that translates a designer's concept, written in a hardware description language (HDL) like Verilog, into a GDSII file. This file acts as the blueprint for the chip's fabrication in a foundry.
+This flow encompasses various stages, each crucial for ensuring the chip functions correctly and can be manufactured efficiently. We'll delve into these stages, from design verification and logic translation to physical layout and final GDSII generation. Buckle up, as we explore the exciting world of turning ideas into silicon!
+
+## OpenLane
+OpenLane emerges as an innovative open-source platform geared towards simplifying and automating the RTL (Register-Transfer Level) to GDSII (Physical Design Interchange Format) flow. This flow sits at the heart of integrated circuit (IC) design, translating a designer's concept into the blueprint used to manufacture the chip.
+Traditionally, this multi-step process can be complex and involve various tools. OpenLane stands out by offering an open-source infrastructure that seamlessly integrates established tools like Yosys, OpenROAD, and Magic. This not only empowers designers with greater control and flexibility but fosters collaboration within the chip design community.
+
+<img width="856" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/ada46e59-25c6-49a4-b2ca-62b9ed74cda5">
+
+## Tools
+
+* Yosys - Synthesis of RTL Design
+* ABC - Mapping of Netlist
+* OpenSTA - Static Timing Analysis
+* OpenROAD - Floorplanning, Placement, CTS, Optimization, Routing
+* TritonRoute - Detailed Routing
+* Magic VLSI - Layout Tool
+* NGSPICE SPICE - Extraction and Spice Simulation
+* SPEF_EXTRACTOR - Generation of SPEF file from DEF file
+
 ## Setup
 If you are Using ARM based MAC: Virtualbox is not supported to open .vdi files.
 You can use UTM and follow below to videos to emulate qcow2 files.
@@ -205,6 +226,33 @@ ngspice sky130_inv.spice
 # Now that we have entered ngspice with the simulation spice file loaded we just have to load the plot
 plot y vs time a
 ```
+<img width="1209" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/80c45ab6-0672-4974-b525-27f247c1fa1d">
+
+* Ngspice Waveform
+<img width="1065" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/ba16caef-aaa3-4dda-bd5a-d12a3e9ec402">
+
+#### Calculations
+- Rise time :
+It is time taken to the output waveform to 20% value to 80% value.
+
+  so, rise time = (2.2476 - 2.1821)e-09 = 65.52 psec.
+
+- Fall time :
+It is the time take by output for transition from 80% to 20%.
+
+  so, fall time = (4.09531 - 4.05312)e-09 = 42.19 psec.
+  
+- Rise cell delay calculation:
+  It is time for output is rising to 50% and input is falling to 50%
+
+  so, rise cell delay = (2.21102 - 2.1501)e-09 = 60.92 psec.
+    
+- Fall cell delay calculation :
+It is time for output falling to 50% and input is rising to 50%.
+
+  so, fall cell delay = (4.073675 - 4.04994)e-09 = 23.74 psec.
+
+
 
 
 ### 5. Fixing DRC in old magic tech file
@@ -224,6 +272,7 @@ cd drc_tests
 # Command to open magic tool in better graphics
 magic -d XR &
 ```
+
 * Link to Sky130 Periphery rules: https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html
 
 #### A. Open poly.mag
@@ -624,6 +673,13 @@ run_routing
 ```
 
 
+## Refrences
+1. Magic DRC: http://opencircuitdesign.com/magic/Technologyfiles/TheMagicTechnologyFileManual/DrcSection
+2. Google Skywater Design Rules: https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html
+3. Google Skywater PDK: https://github.com/google/skywater-pdk
+4. Ebaless - OpenLane: https://efabless.com/openlane
+5. Magic: http://www.opencircuitdesign.com/magic/index.html
+6. Inverter design: https://github.com/nickson-jose/vsdstdcelldesign/tree/master
 
 
 
