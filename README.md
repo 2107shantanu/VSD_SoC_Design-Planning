@@ -1,8 +1,12 @@
 # VSD_SoC_Design-Planning
+
 ## Setup
-brew || UTM || Loading etc.
+If you are Using ARM based MAC: Virtualbox is not supported to open .vdi files.
+You can use UTM and follow below to videos to emulate qcow2 files.
+
 * https://sysadmin102.com/2024/01/utm-converting-vdivirtualbox-raw-vmdkvmware-image-to-qemu-image-qcow2/
-* https://sysadmin102.com/2024/01/utm-converting-vdivirtualbox-raw-vmdkvmware-image-to-qemu-image-qcow2/
+* https://www.youtube.com/watch?v=g60Xr9dL3pc
+  
 ## Day 1
 ### 1. Opening OpenLane and Running Synthesis
 
@@ -391,6 +395,19 @@ run_synthesis
 
 #### A. Run Floorplan and Placement
 ```
+# Follwing commands are alltogather sourced in "run_floorplan" command
+init_floorplan
+place_io
+tap_decap_or
+
 ```
+<img width="1221" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/d121a2c0-cf53-4c79-bb09-2a1149ce6dd7">
+
+```
+# Now we are ready to run placement
+run_placement
+
+```
+
 
 
