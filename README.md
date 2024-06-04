@@ -2,6 +2,7 @@
 ## Setup
 brew || UTM || Loading etc.
 * https://sysadmin102.com/2024/01/utm-converting-vdivirtualbox-raw-vmdkvmware-image-to-qemu-image-qcow2/
+* https://sysadmin102.com/2024/01/utm-converting-vdivirtualbox-raw-vmdkvmware-image-to-qemu-image-qcow2/
 ## Day 1
 ### 1. Opening OpenLane and Running Synthesis
 
