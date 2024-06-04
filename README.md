@@ -678,7 +678,6 @@ echo $::env(ROUTING_STRATEGY)
 # Command for detailed route using TritonRoute
 run_routing
 ```
-Img
 
 ```
 # Change directory to path containing routed def
