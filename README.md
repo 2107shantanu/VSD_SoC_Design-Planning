@@ -160,7 +160,7 @@ magic -T sky130A.tech sky130_inv.mag &
 <img width="838" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/d1832594-751a-4d9b-b667-c0dcad0ae867">
 
 
-### 2. Spice Extractor of Inverter into Magic
+### 2. Spice Extractation of Inverter into Magic
 ```
 #Enter these commands in tkcon window of magic
 # Check current directory
@@ -178,10 +178,91 @@ ext2spice
 <img width="910" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/98ae65ab-0938-4f1f-86da-68b732d433f9">
 
 ### 3. Editing Spice model file for analysis through simulation.
-#### Units
+#### Observing Units
 <img width="658" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/56ce92fe-463a-407a-b472-fdbfffc20ebd">
 
+#### Edited Spice model file
+<img width="907" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/7219f434-700f-43e8-8d1e-249bc722dbb5">
 
+### 4. Post layout Ngspice Simulations
+
+```
+# Command to directly load spice file for simulation to ngspice
+ngspice sky130_inv.spice
+
+# Now that we have entered ngspice with the simulation spice file loaded we just have to load the plot
+plot y vs time a
+```
+
+### 5. Fixing DRC in old magic tech file
+```
+# Change to home directory
+cd
+
+# Command to download the lab files
+wget http://opencircuitdesign.com/open_pdks/archive/drc_tests.tgz
+
+# Since lab file is compressed command to extract it
+tar xfz drc_tests.tgz
+
+# Change directory into the lab folder
+cd drc_tests
+
+# Command to open magic tool in better graphics
+magic -d XR &
+```
+Link to Sky130 Periphery rules: https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html
+
+#### A. Open poly.mag
+
+<img width="1229" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/075c2a46-be1b-4842-9821-9394968333fa">
+
+#### B. Incorrectly implemented poly
+<img width="696" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/49719379-4cdf-4ba1-9860-8f4b60f5d90b">
+<img width="773" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/a56297e0-1df9-43ee-a598-ff70522f7306">
+
+```
+# Loading updated tech file
+tech load sky130A.tech
+
+# Must re-run drc check to see updated drc errors
+drc check
+
+# Selecting region displaying the new errors and getting the error messages 
+drc why
+```
+
+<img width="955" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/25b5f6e8-affa-4911-aefb-294b468b6b8c">
+
+#### C. nwell: DRC error as geometrical construct
+
+```
+cif ostyle drc
+cif see dnwell_shrink
+feed clear
+cif see nwell_missing
+feed clear
+```
+
+<img width="589" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/1465307d-67fe-4f3a-a66d-83d0a1c755bb">
+<img width="508" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/54988c6a-03be-4a33-b0d8-d4a2707e00cb">
+
+```
+# Loading updated tech file
+tech load sky130A.tech
+
+# Change drc style to drc full
+drc style drc(full)
+
+# Must re-run drc check to see updated drc errors
+drc check
+
+# Selecting region displaying the new errors and getting the error messages 
+drc why
+```
+<img width="793" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/12de0eb7-dd13-49ab-9f62-43610f8c33cd">
+
+## Day 4
 
 
 
