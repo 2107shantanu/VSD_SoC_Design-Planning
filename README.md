@@ -594,6 +594,34 @@ echo $::env(CTS_CLK_BUFFER_LIST)
 
 ## Day 5
 
+### 1. Generate Power Distribution Network (PDN) and explore the PDN layout.
+
+```
+# Now that CTS is done we can do power distribution network
+gen_pdn
+
+# Change directory to path containing generated PDN def
+cd Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/04-06_07-47/tmp/floorplan/
+
+# Command to load the PDN def in magic tool
+magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech lef read ../../tmp/merged.lef def read 23-pdn.def &
+```
+<img width="1224" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/6e3da5e7-9912-459d-9558-77ac7fc7e66e">
+<img width="1226" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/a3ded740-0744-4055-a808-6ff5126706f8">
+<img width="1224" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/2a48c107-33c6-49ac-a98c-bf4183275e90">
+
+### 2. Perfrom detailed routing using TritonRoute and explore the routed layout.
+
+```
+# Check value of 'CURRENT_DEF'
+echo $::env(CURRENT_DEF)
+
+# Check value of 'ROUTING_STRATEGY'
+echo $::env(ROUTING_STRATEGY)
+
+# Command for detailed route using TritonRoute
+run_routing
+```
 
 
 
