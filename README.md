@@ -95,12 +95,11 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 ```
 <img width="1228" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/12408a42-8079-4ce4-8c19-95ee874b8a34">
 
-#### A. Equidistant Placement of Ports
-#### B. Diagonally Equidistant Tap Cells
+#### A. Equidistant Placement of Ports & Diagonally Equidistant Tap Cells
 
 <img width="1230" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/48e66f2c-1084-410c-849b-b2579a67a584">
 
-#### C. Unplaced Standard Cell at Origin
+#### B. Unplaced Standard Cell at Origin
 <img width="1222" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/ab5341c1-a221-4e77-ac1a-256ac571abf2">
 
 ### 4. Run Placement
@@ -120,7 +119,7 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 ```
 <img width="967" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/b3b00e16-e917-47b7-8eff-b8a5b05bbc32">
 
-#### Legally placed standard cells
+* Legally placed standard cells
 <img width="971" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/43c7c15e-215f-48db-aa6c-2d65741f49ac">
 
 ```
@@ -191,10 +190,10 @@ ext2spice
 <img width="910" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/98ae65ab-0938-4f1f-86da-68b732d433f9">
 
 ### 3. Editing Spice model file for analysis through simulation.
-#### Observing Units
+* Observing Units
 <img width="658" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/56ce92fe-463a-407a-b472-fdbfffc20ebd">
 
-#### Edited Spice model file
+* Edited Spice model file
 <img width="907" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/7219f434-700f-43e8-8d1e-249bc722dbb5">
 
 ### 4. Post layout Ngspice Simulations
@@ -224,7 +223,7 @@ cd drc_tests
 # Command to open magic tool in better graphics
 magic -d XR &
 ```
-Link to Sky130 Periphery rules: https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html
+* Link to Sky130 Periphery rules: https://skywater-pdk.readthedocs.io/en/main/rules/periphery.html
 
 #### A. Open poly.mag
 
