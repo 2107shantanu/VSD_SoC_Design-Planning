@@ -384,6 +384,8 @@ run_synthesis
 ```
 <img width="1089" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/e0b6d1a9-6686-4fcd-837d-dc931339d0d6">
 
+* Fixed Violation
+<img width="1212" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/16bb64ad-d8f9-4a6c-b499-05388b5987dd">
 
 
 
