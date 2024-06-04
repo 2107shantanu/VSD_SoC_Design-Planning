@@ -206,6 +206,7 @@ ngspice sky130_inv.spice
 plot y vs time a
 ```
 
+
 ### 5. Fixing DRC in old magic tech file
 ```
 # Change to home directory
