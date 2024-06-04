@@ -10,6 +10,7 @@ You can use UTM and follow below to videos to emulate qcow2 files.
 ## Day 1
 ### 1. Opening OpenLane and Running Synthesis
 
+* Start OpenLane Flow
 ```
 # Change directory to openlane flow directory
 cd Desktop/work/tools/openlane_working_dir/openlane
@@ -26,6 +27,8 @@ package require openlane 0.9
 ```
 
 <img width="1212" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/2fb7a8d6-173d-464b-b477-5fe40e1ef0fe">
+
+* Prepare the design for run and run Synthesis.
 
 ```
 # Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
@@ -44,8 +47,10 @@ exit
 # Exit from OpenLANE flow docker sub-system
 exit
 ```
-### 2. Flop Ratios
+### 2. Calculate Flop Ratios
 
+* Open Synthesis Report
+  
 ```
 # Open new terminal tab
 # Change to latest synthesis report directory and view synthesis statistic report 
@@ -74,6 +79,8 @@ run_floorplan
 gvim Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/runs/03-06_12-06/results/floorplan
 
 ```
+* Locate Floorplan.def
+
 <img width="989" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/61e41057-9cd3-4959-ac85-d7d2c85ed825">
 <img width="791" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/24bcdeb6-8a72-4d91-b7ce-1d2df766206f">
 
@@ -448,12 +455,144 @@ sta pre_sta.conf
 ### 6. Run CTS
 
 ```
-# Incase getting error
-unset ::env(LIB_CTS)
-
 # With placement done we are now ready to run CTS
 run_cts
 ```
+<img width="1232" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/37504b3c-6fe2-4914-bb68-78108e469c1e">
+
+### 7. Post-CTS OpenROAD timing analysis.
+
+Commands to be run in OpenLANE flow to do OpenROAD timing analysis with integrated OpenSTA in OpenROAD
+
+```
+# Command to run OpenROAD tool
+openroad
+
+# Reading lef file
+read_lef /openLANE_flow/designs/picorv32a/runs/04-06_07-47/tmp/merged.lef
+
+# Reading def file
+read_def /openLANE_flow/designs/picorv32a/runs/04-06_07-47/results/cts/picorv32a.cts.def
+
+# Creating an OpenROAD database to work with
+write_db pico_cts.db
+
+# Loading the created database in OpenROAD
+read_db pico_cts.db
+
+# Read netlist post CTS
+read_verilog /openLANE_flow/designs/picorv32a/runs/04-06_07-47/results/synthesis/picorv32a.synthesis_cts.v
+
+# Read library for design
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Link design and library
+link_design picorv32a
+
+# Read in the custom sdc we created
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all cloks as propagated clocks
+set_propagated_clock [all_clocks]
+
+# Check syntax of 'report_checks' command
+help report_checks
+
+# Generating custom timing report
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+# Exit to OpenLANE flow
+exit
+```
+
+<img width="846" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/e167817a-d358-4206-b237-d9b8f3ca119f">
+
+#### A. Execute OpenSTA with right timing libraries and CTS by removing 'sky130_fd_sc_hd__clkbuf_1' cell from clock buffer list variable 'CTS_CLK_BUFFER_LIST'.
+
+```
+# Checking current value of 'CTS_CLK_BUFFER_LIST'
+echo $::env(CTS_CLK_BUFFER_LIST)
+
+# Removing 'sky130_fd_sc_hd__clkbuf_1' from the list
+set ::env(CTS_CLK_BUFFER_LIST) [lreplace $::env(CTS_CLK_BUFFER_LIST) 0 0]
+
+# Checking current value of 'CTS_CLK_BUFFER_LIST'
+echo $::env(CTS_CLK_BUFFER_LIST)
+
+# Checking current value of 'CURRENT_DEF'
+echo $::env(CURRENT_DEF)
+
+# Setting def as placement def
+set ::env(CURRENT_DEF) /openLANE_flow/designs/picorv32a/runs/04-06_07-47/results/placement/picorv32a.placement.def
+
+# Run CTS again
+run_cts
+
+# Checking current value of 'CTS_CLK_BUFFER_LIST'
+echo $::env(CTS_CLK_BUFFER_LIST)
+```
+<img width="1227" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/3e34e8a8-d912-4bcc-be58-f5705bfd6859">
+
+#### B. Observe impact of Bigger CTS Buffer
+
+```
+# Command to run OpenROAD tool
+openroad
+
+# Reading lef file
+read_lef /openLANE_flow/designs/picorv32a/runs/04-06_07-47/tmp/merged.lef
+
+# Reading def file
+read_def /openLANE_flow/designs/picorv32a/runs/04-06_07-47/results/cts/picorv32a.cts.def
+
+# Creating an OpenROAD database to work with
+write_db pico_cts1.db
+
+# Loading the created database in OpenROAD
+read_db pico_cts.db
+
+# Read netlist post CTS
+read_verilog /openLANE_flow/designs/picorv32a/runs/04-06_07-47/results/synthesis/picorv32a.synthesis_cts.v
+
+# Read library for design
+read_liberty $::env(LIB_SYNTH_COMPLETE)
+
+# Link design and library
+link_design picorv32a
+
+# Read in the custom sdc we created
+read_sdc /openLANE_flow/designs/picorv32a/src/my_base.sdc
+
+# Setting all cloks as propagated clocks
+set_propagated_clock [all_clocks]
+
+# Generating custom timing report
+report_checks -path_delay min_max -fields {slew trans net cap input_pins} -format full_clock_expanded -digits 4
+
+# Report hold skew
+report_clock_skew -hold
+
+# Report setup skew
+report_clock_skew -setup
+
+# Exit to OpenLANE flow
+exit
+```
+<img width="1226" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/db3ce286-3426-479a-bb71-6e76ac2bbb95">
+
+```
+# Checking current value of 'CTS_CLK_BUFFER_LIST'
+echo $::env(CTS_CLK_BUFFER_LIST)
+
+# Inserting 'sky130_fd_sc_hd__clkbuf_1' to first index of list
+set ::env(CTS_CLK_BUFFER_LIST) [linsert $::env(CTS_CLK_BUFFER_LIST) 0 sky130_fd_sc_hd__clkbuf_1]
+
+# Checking current value of 'CTS_CLK_BUFFER_LIST'
+echo $::env(CTS_CLK_BUFFER_LIST)
+```
+<img width="1220" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/bb649673-7c13-4d27-92d2-ffd26ca78a57">
+
+## Day 5
 
 
 
