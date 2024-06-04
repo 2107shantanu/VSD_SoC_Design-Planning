@@ -120,3 +120,69 @@ exit
 
 ## Day 3
 
+### 1. Clone, Load the custom inverter layout in magic and explore.
+```
+# Change directory to openlane
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+# Clone the repository with custom inverter design
+# custom inverter standard cell design from github repository: Standard cell design and characterization using OpenLANE flow.
+git clone https://github.com/nickson-jose/vsdstdcelldesign
+
+# Change into repository directory
+cd vsdstdcelldesign
+
+# Copy magic tech file to the repo directory for easy access
+cp /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs.tech/magic/sky130A.tech .
+
+# Command to open custom inverter layout in magic
+magic -T sky130A.tech sky130_inv.mag &
+```
+<img width="967" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/0879d883-ace1-47d8-8db5-81b64fb29e9d">
+
+#### A. NMOS (Verified)
+
+<img width="834" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/dc425e8f-3ee3-4771-ade3-522573521e00">
+
+#### B. PMOS (Verified)
+<img width="767" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/ef344207-9c70-4897-96a6-1dfb6eb827b5">
+
+#### C. Output Y connection to PMOS & NMOS drain (Verified)
+<img width="383" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/1c822ca3-4a8d-4b15-8f59-25663cc05420">
+
+#### D. Source of PMOS connected to VDD (Verified)
+<img width="296" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/bd7995c3-0746-4314-bac6-d0a5bb023ca2">
+
+#### E. Source of NMOS connected to GND (Verified)
+<img width="307" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/5c158100-4d73-4334-8219-5f1c91173a76">
+
+#### F. Creating DRC Error
+<img width="838" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/d1832594-751a-4d9b-b667-c0dcad0ae867">
+
+
+### 2. Spice Extractor of Inverter into Magic
+```
+#Enter these commands in tkcon window of magic
+# Check current directory
+pwd
+
+# Extraction command to extract to .ext format
+extract all
+
+# Before converting ext to spice this command enable the parasitic extraction also
+ext2spice cthresh 0 rthresh 0
+
+# Converting to ext to spice
+ext2spice
+```
+<img width="910" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/98ae65ab-0938-4f1f-86da-68b732d433f9">
+
+### 3. Editing Spice model file for analysis through simulation.
+#### Units
+<img width="658" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/56ce92fe-463a-407a-b472-fdbfffc20ebd">
+
+
+
+
+
+
