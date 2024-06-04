@@ -441,6 +441,20 @@ cd Desktop/work/tools/openlane_working_dir/openlane
 # Command to invoke OpenSTA tool with script
 sta pre_sta.conf
 ```
+<img width="1231" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/67615bc3-831c-424f-8e92-96f51cbb0e2a">
+
+#### * Since here slack is already met. No need to do ECO fixes.
+
+### 6. Run CTS
+
+```
+# Incase getting error
+unset ::env(LIB_CTS)
+
+# With placement done we are now ready to run CTS
+run_cts
+```
+
 
 
 
