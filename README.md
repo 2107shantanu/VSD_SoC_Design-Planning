@@ -264,6 +264,39 @@ drc why
 
 ## Day 4
 
+### 1. Fix up small DRC errors and verify the design is ready to be inserted into our flow.
 
+```
+# Change directory to vsdstdcelldesign
+cd Desktop/work/tools/openlane_working_dir/openlane/vsdstdcelldesign
+
+# Command to open custom inverter layout in magic
+magic -T sky130A.tech sky130_inv.mag &
+
+# Get syntax for grid command
+help grid
+
+# Set grid values accordingly
+grid 0.46um 0.34um 0.23um 0.17um
+
+```
+#### A. The input and output ports of the standard cell should lie on the intersection of the vertical and horizontal tracks. (Verified)
+
+<img width="697" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/5f3aaaec-c900-4d51-b6cd-917ed6ae6da8">
+
+#### B. Width of the standard cell should be odd multiples of the horizontal track pitch. & Height of the standard cell should be even multiples of the vertical track pitch. (verified)
+
+Width = 3 * 0.46
+Height = 8 * 0.34
+
+<img width="686" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/324e85d7-f725-4f78-84a0-d4843131ca28">
+
+```
+# Command to save as
+save sky130_vsdinv.mag
+
+# Command to open custom inverter layout in magic
+magic -T sky130A.tech sky130_vsdinv.mag &
+```
 
 
