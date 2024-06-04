@@ -1,6 +1,7 @@
 # VSD_SoC_Design-Planning
 ## Setup
 brew || UTM || Loading etc.
+* https://sysadmin102.com/2024/01/utm-converting-vdivirtualbox-raw-vmdkvmware-image-to-qemu-image-qcow2/
 ## Day 1
 ### 1. Opening OpenLane and Running Synthesis
 
@@ -387,5 +388,8 @@ run_synthesis
 * Fixed Violation
 <img width="1212" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/16bb64ad-d8f9-4a6c-b499-05388b5987dd">
 
+#### A. Run Floorplan and Placement
+```
+```
 
 
