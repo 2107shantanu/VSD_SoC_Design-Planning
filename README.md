@@ -480,6 +480,11 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 <img width="1006" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/c9eb6cf2-cc20-47e1-84dc-8af87b90f60b">
 
 #### C. Observe Abudment of cells
+```
+# Command to view internal connectivity layers
+expand
+```
+
 <img width="585" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/715b141c-c82c-4715-bd2b-bcf43729759e">
 
 
