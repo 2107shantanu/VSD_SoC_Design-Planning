@@ -292,11 +292,98 @@ Height = 8 * 0.34
 <img width="686" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/324e85d7-f725-4f78-84a0-d4843131ca28">
 
 ```
-# Command to save as
-save sky130_vsdinv.mag
+# Command to save as custom name
+save sky130_shaninv.mag
 
 # Command to open custom inverter layout in magic
-magic -T sky130A.tech sky130_vsdinv.mag &
+magic -T sky130A.tech sky130_shaninv.mag &
+
+# Write lef
+lef write
 ```
+<img width="962" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/1f5fc7a1-e257-46c0-b973-74c0988a617e">
+
+### 2. Copy Custom Inverter and Update config
+#### A. Copy the newly generated lef and associated required lib files to 'picorv32a' design 'src' directory.
+
+```
+# Copy lef file
+cp sky130_shaninv.lef ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# List and check whether it's copied
+ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# Copy lib files
+cp libs/sky130_fd_sc_hd__* ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+
+# List and check whether it's copied
+ls ~/Desktop/work/tools/openlane_working_dir/openlane/designs/picorv32a/src/
+```
+
+#### B. Edit 'config.tcl' to change lib file and add the new extra lef into the openlane flow
+<img width="1091" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/f2d0fad9-1a79-44c5-a78e-76b73a5e1363">
+
+### 3. Run openlane flow with newly inserted customer inverter cell
+```
+# Change directory to openlane flow directory
+cd Desktop/work/tools/openlane_working_dir/openlane
+
+# alias docker='docker run -it -v $(pwd):/openLANE_flow -v $PDK_ROOT:$PDK_ROOT -e PDK_ROOT=$PDK_ROOT -u $(id -u $USER):$(id -g $USER) efabless/openlane:v0.21'
+# Since we have aliased the long command to 'docker' we can invoke the OpenLANE flow docker sub-system by just running this command
+docker
+
+# Now that we have entered the OpenLANE flow contained docker sub-system we can invoke the OpenLANE flow in the Interactive mode using the following command
+./flow.tcl -interactive
+
+# Now that OpenLANE flow is open we have to input the required packages for proper functionality of the OpenLANE flow
+package require openlane 0.9
+
+# Now the OpenLANE flow is ready to run any design and initially we have to prep the design creating some necessary files and directories for running a specific design which in our case is 'picorv32a'
+prep -design picorv32a
+
+# Adiitional commands to include newly added lef to openlane flow
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+```
+<img width="1223" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/56291d05-1754-4e16-afa4-e4e81ba1a81c">
+<img width="1134" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/60d55785-1421-4b2d-97dc-84f04eb1609f">
+
+### 4. Fixing the newly introduced violations with the introduction of custom inverter cell by modifying design parameters.
+
+```
+# Now once again we have to prep design so as to update variables
+prep -design picorv32a -tag 04-06_07-47 -overwrite
+
+# Addiitional commands to include newly added lef to openlane flow merged.lef
+set lefs [glob $::env(DESIGN_DIR)/src/*.lef]
+add_lefs -src $lefs
+
+# Command to display current value of variable SYNTH_STRATEGY
+echo $::env(SYNTH_STRATEGY)
+
+# Command to set new value for SYNTH_STRATEGY
+set ::env(SYNTH_STRATEGY) "DELAY 3"
+
+# Command to display current value of variable SYNTH_BUFFERING to check whether it's enabled
+echo $::env(SYNTH_BUFFERING)
+
+# Command to display current value of variable SYNTH_SIZING
+echo $::env(SYNTH_SIZING)
+
+# Command to set new value for SYNTH_SIZING
+set ::env(SYNTH_SIZING) 1
+
+# Command to display current value of variable SYNTH_DRIVING_CELL to check whether it's the proper cell or not
+echo $::env(SYNTH_DRIVING_CELL)
+
+# Now that the design is prepped and ready, we can run synthesis using following command
+run_synthesis
+```
+<img width="1089" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/e0b6d1a9-6686-4fcd-837d-dc931339d0d6">
+
+
 
 
