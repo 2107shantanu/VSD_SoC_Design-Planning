@@ -678,6 +678,7 @@ echo $::env(ROUTING_STRATEGY)
 # Command for detailed route using TritonRoute
 run_routing
 ```
+<img width="1229" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/759ef05f-aad8-445a-89f7-3cbadbbb6e6b">
 
 ```
 # Change directory to path containing routed def
@@ -688,7 +689,8 @@ magic -T /home/vsduser/Desktop/work/tools/openlane_working_dir/pdks/sky130A/libs
 ```
 <img width="716" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/b5e6a2ee-f012-42d6-be36-72b50487a39b">
 <img width="801" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/1912f760-96ee-4784-8eb8-5d7acf7e3f52">
-<img width="783" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/77f9f272-2711-4f85-a9f1-73f6f2c8704d">
+<img width="1099" alt="image" src="https://github.com/2107shantanu/VSD_SoC_Design-Planning/assets/54627896/9451c2bb-7715-48ae-a926-b79285c0bc95">
+
 
 ### 3. SPEF Extraction
 ```
